@@ -11,7 +11,13 @@ namespace QuanLyBanHang
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Session["Role"] == null || !Session["Role"].ToString().Contains("Admin"))
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
         }
     }
 }
