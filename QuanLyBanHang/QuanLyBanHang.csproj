@@ -79,6 +79,8 @@
     <Content Include="Images\dellxps15.jpg" />
     <Content Include="Images\iphone15.jpg" />
     <Content Include="Images\macbookm3.jpg" />
+    <Content Include="Images\qr-bank.png" />
+    <Content Include="Images\qr-momo.png" />
     <Content Include="Images\samsungs24.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="ProductDetail.aspx" />

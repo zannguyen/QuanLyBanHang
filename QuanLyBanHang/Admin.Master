@@ -11,6 +11,16 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <div style="background:#1A1208; padding:14px 22px; display:flex; align-items:center; gap:14px;">
+                <a href="AdminOrders.aspx" style="color:#fff; text-decoration:none; font-weight:700; position:relative;">
+                    Đơn hàng
+                    <asp:Label ID="lblPendingOrders" runat="server" Visible="false"
+                        style="margin-left:8px; display:inline-flex; align-items:center; justify-content:center;
+                               min-width:18px; height:18px; padding:0 6px; border-radius:999px;
+                               background:#d9534f; color:#fff; font-size:11px; font-weight:800;" />
+                </a>
+                <a href="Default.aspx" style="color:#C9973A; text-decoration:none; margin-left:14px;">Về trang bán</a>
+            </div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>

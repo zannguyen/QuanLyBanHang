@@ -11,7 +11,30 @@ namespace QuanLyBanHang
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindCartCount();
+        }
 
+        void BindCartCount()
+        {
+            var cart = Session["Cart"] as Dictionary<int, int>;
+
+            int count = 0;
+            if (cart != null)
+                count = cart.Values.Sum();
+
+            if (lblCartCount == null)
+                return;
+
+            if (count > 0)
+            {
+                lblCartCount.Visible = true;
+                lblCartCount.Text = count.ToString();
+            }
+            else
+            {
+                lblCartCount.Visible = false;
+                lblCartCount.Text = string.Empty;
+            }
         }
     }
 }

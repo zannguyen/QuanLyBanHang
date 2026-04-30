@@ -48,6 +48,11 @@
         <a href="Cart.aspx" style="display:flex; flex-direction:column; 
            align-items:center; padding:8px 12px; text-decoration:none; color:#6B4C2A; font-size:11px; position:relative;">
           🛒 <span>Giỏ hàng</span>
+          <asp:Label ID="lblCartCount" runat="server" Visible="false"
+              style="position:absolute; top:4px; right:6px; min-width:18px; height:18px;
+                     padding:0 5px; border-radius:999px; background:#d9534f; color:#fff;
+                     display:flex; align-items:center; justify-content:center;
+                     font-size:11px; font-weight:700; line-height:18px;" />
         </a>
         <a href="Login.aspx" style="background:#C9973A; color:#fff; padding:9px 20px; 
            border-radius:8px; text-decoration:none; font-size:13px; font-weight:600;">
