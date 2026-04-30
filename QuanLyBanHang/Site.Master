@@ -7,13 +7,173 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <table class="auto-style1">
+         <tr>
+  <td style="background:#fff; border-bottom: 2px solid #C9973A;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 32px; 
+                display:flex; align-items:center; height:72px; gap:32px;">
+      
+      <!-- LOGO -->
+      <a href="Default.aspx" style="font-family:'Georgia',serif; font-size:26px; 
+         font-weight:700; text-decoration:none; color:#1A1208;">
+        Shop<span style="color:#C9973A;">VN</span>
+      </a>
+
+      <!-- SEARCH -->
+      <div style="flex:1; max-width:480px; display:flex; 
+                  border:1.5px solid #E8DDD0; border-radius:8px; overflow:hidden;">
+        <input type="text" placeholder="Tìm kiếm sản phẩm..." 
+               style="flex:1; border:none; outline:none; padding:10px 16px; 
+                      background:#FAF7F2; font-size:14px;"/>
+        <button style="background:#C9973A; border:none; padding:10px 18px; 
+                       color:#fff; cursor:pointer; font-size:15px;">
+          🔍
+        </button>
+      </div>
+
+      <!-- BUTTONS -->
+      <div style="display:flex; align-items:center; gap:8px; margin-left:auto;">
+        <a href="OrderHistory.aspx" style="display:flex; flex-direction:column; 
+           align-items:center; padding:8px 12px; text-decoration:none; color:#1A1208; font-size:11px;">
+          🛍 <span>Đơn hàng</span>
+        </a>
+        <a href="Cart.aspx" style="display:flex; flex-direction:column; 
+           align-items:center; padding:8px 12px; text-decoration:none; color:#6B4C2A; font-size:11px; position:relative;">
+          🛒 <span>Giỏ hàng</span>
+        </a>
+        <a href="Login.aspx" style="background:#C9973A; color:#fff; padding:9px 20px; 
+           border-radius:8px; text-decoration:none; font-size:13px; font-weight:600;">
+          👤 Đăng nhập
+        </a>
+      </div>
+
+    </div>
+  </td>
+</tr>
+            <tr>
+  <td style="background:#fff; border-bottom:2px solid #C9973A;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 32px; display:flex;">
+
+      <!-- Nút "Tất cả" viết tay -->
+      <a href="Default.aspx" style="padding:12px 18px; text-decoration:none; 
+         color:#1A1208; font-size:13px; font-weight:600; 
+         text-transform:uppercase; letter-spacing:.06em;
+         border-bottom:2px solid #C9973A;">
+        Tất cả
+      </a>
+
+      <!-- DataList lấy từ database -->
+      <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+        ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+        SelectCommand="SELECT * FROM [Categories]">
+      </asp:SqlDataSource>
+
+      <asp:DataList ID="DataList1" runat="server"
+        DataSourceID="SqlDataSource1"
+        DataKeyField="Id"
+        RepeatColumns="10"
+        RepeatDirection="Horizontal">
+        <ItemTemplate>
+          <a href='<%# "Default.aspx?cat=" + Eval("Id") %>'
+             style="padding:12px 18px; text-decoration:none; color:#8B7355;
+                    font-size:13px; font-weight:500; text-transform:uppercase;
+                    letter-spacing:.06em; display:block;">
+            <%# Eval("Name") %>
+          </a>
+        </ItemTemplate>
+      </asp:DataList>
+
+    </div>
+  </td>
+</tr>
+            <tr>
+                <td>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
+                </td>
+            </tr>
+           <tr>
+  <td style="background:#1A1208;">
+    
+    <!-- PHẦN TRÊN FOOTER: 4 cột -->
+    <div style="max-width:1280px; margin:0 auto; padding:52px 32px 32px;
+                display:flex; gap:40px;">
+
+      <!-- Cột 1: Thương hiệu -->
+      <div style="flex:2;">
+        <div style="font-family:'Georgia',serif; font-size:24px; 
+                    font-weight:700; color:#fff; margin-bottom:12px;">
+          Shop<span style="color:#C9973A;">VN</span>
         </div>
+        <p style="font-size:13px; line-height:1.7; color:#7A6A55;">
+          Nền tảng mua sắm điện tử uy tín hàng đầu Việt Nam.<br/>
+          Cam kết chính hãng 100%, giao hàng nhanh toàn quốc.
+        </p>
+        <!-- Mạng xã hội -->
+        <div style="display:flex; gap:10px; margin-top:20px;">
+          <a href="#" style="width:36px; height:36px; background:rgba(255,255,255,.07);
+             border-radius:50%; display:flex; align-items:center; justify-content:center;
+             color:#9C8A72; text-decoration:none; font-size:14px;">f</a>
+          <a href="#" style="width:36px; height:36px; background:rgba(255,255,255,.07);
+             border-radius:50%; display:flex; align-items:center; justify-content:center;
+             color:#9C8A72; text-decoration:none; font-size:14px;">in</a>
+        </div>
+      </div>
+
+      <!-- Cột 2: Sản phẩm -->
+      <div style="flex:1;">
+        <h4 style="font-family:'Georgia',serif; color:#fff; font-size:15px; margin-bottom:16px;">Sản phẩm</h4>
+        <ul style="list-style:none;">
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Điện thoại</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Laptop</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Tablet</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Phụ kiện</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 3: Hỗ trợ -->
+      <div style="flex:1;">
+        <h4 style="font-family:'Georgia',serif; color:#fff; font-size:15px; margin-bottom:16px;">Hỗ trợ</h4>
+        <ul style="list-style:none;">
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Chính sách đổi trả</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Bảo hành</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Thanh toán</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <!-- Cột 4: Công ty -->
+      <div style="flex:1;">
+        <h4 style="font-family:'Georgia',serif; color:#fff; font-size:15px; margin-bottom:16px;">Công ty</h4>
+        <ul style="list-style:none;">
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Giới thiệu</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Tuyển dụng</a></li>
+          <li style="margin-bottom:9px;"><a href="#" style="color:#7A6A55; text-decoration:none; font-size:13px;">Tin tức</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- PHẦN DƯỚI FOOTER: Copyright -->
+    <div style="border-top:1px solid rgba(255,255,255,.06); padding:18px 32px;
+                max-width:1280px; margin:0 auto;
+                display:flex; justify-content:space-between; 
+                font-size:12px; color:#5A4A38;">
+      <span>© 2025 ShopVN. Tất cả quyền được bảo lưu.</span>
+      <span>Thiết kế bởi nhóm phát triển</span>
+    </div>
+
+  </td>
+</tr>
+        </table>
     </form>
 </body>
 </html>
