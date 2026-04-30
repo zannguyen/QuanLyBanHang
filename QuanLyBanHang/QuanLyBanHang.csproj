@@ -72,10 +72,6 @@
     <Content Include="AdminOrders.aspx" />
     <Content Include="AdminProducts.aspx" />
     <Content Include="AdminVouchers.aspx" />
-    <Content Include="App_Data\QuanLyBanHang.mdf" />
-    <Content Include="App_Data\QuanLyBanHang_log.ldf">
-      <DependentUpon>QuanLyBanHang.mdf</DependentUpon>
-    </Content>
     <Content Include="Cart.aspx" />
     <Content Include="Checkout.aspx" />
     <Content Include="Default.aspx" />
@@ -208,6 +204,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
