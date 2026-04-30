@@ -1,18 +1,22 @@
-﻿<%@ Page Title="Quản Lý Đơn Hàng" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="AdminOrders.aspx.cs" Inherits="QuanLyBanHang.AdminOrders" %>
+<%@ Page Title="Quản Lý Đơn Hàng" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="AdminOrders.aspx.cs" Inherits="QuanLyBanHang.AdminOrders" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="utf-8" />
     <style>
-        .page-title { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1A1208; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #C9973A; }
-        .wrapper-container { background: #fff; padding: 20px; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .table th, .table td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; }
-        .table th { background-color: #f4f4f4; color: #333; font-weight: bold; text-transform: uppercase; font-size: 14px; }
-        .table tr:hover { background-color: #f9f9f9; }
-        select { padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; font-family: inherit; }
-        input[type="submit"], button, .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; background: #C9973A; color: #fff; font-weight: bold; }
-        input[type="submit"]:hover, button:hover, .btn:hover { background: #b58530; }
-        a { color: #C9973A; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
+        .page-title { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #2c3e50; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #e74c3c; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; text-align: center;}
+        .wrapper-container { background: linear-gradient(to right bottom, #ffffff, #fdfbf7); padding: 30px; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 30px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 1200px; }
+        .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .table th, .table td { padding: 15px; text-align: left; }
+        .table th { background: linear-gradient(135deg, #3498db, #2980b9); color: #ffffff; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table td { border-bottom: 1px solid #e9ecef; color: #444; font-size: 14px; background-color: #fff; }
+        .table tr:last-child td { border-bottom: none; }
+        .table tr:nth-child(even) td { background-color: #f8fbfe; }
+        .table tr:hover td { background-color: #eaf2f8; transition: background-color 0.3s ease; }
+        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #bdc3c7; font-family: inherit; font-size: 14px; color: #34495e; background-color: #f9fbfd; transition: border-color 0.2s; }
+        select:focus { border-color: #3498db; outline: none; box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); }
+        input[type="submit"], button, .btn { padding: 8px 18px; border: none; border-radius: 6px; cursor: pointer; background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; font-weight: 600; transition: all 0.3s ease; font-size: 14px; box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3); }
+        input[type="submit"]:hover, button:hover, .btn:hover { background: linear-gradient(135deg, #c0392b, #a53125); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(231, 76, 60, 0.4); }
+        a { color: #2980b9; text-decoration: none; font-weight: 600; transition: color 0.2s; background-color: transparent; }
+        a:hover { color: #1abc9c; text-decoration: underline; }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -31,11 +35,14 @@
                         <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:DropDownList ID="ddlStatus" runat="server" SelectedValue='<%# Eval("Status") %>'>
+                        <asp:DropDownList ID="ddlStatus" runat="server" SelectedValue='<%# Bind("Status") %>'>
+                            <asp:ListItem Text="Chờ xác nhận" Value="Chờ xác nhận" />
                             <asp:ListItem Text="Chờ xử lý" Value="Chờ xử lý" />
                             <asp:ListItem Text="Đã xác nhận" Value="Đã xác nhận" />
                             <asp:ListItem Text="Đang giao hàng" Value="Đang giao hàng" />
+                            <asp:ListItem Text="Đang giao" Value="Đang giao" />
                             <asp:ListItem Text="Đã giao" Value="Đã giao" />
+                            <asp:ListItem Text="Hoàn thành" Value="Hoàn thành" />
                             <asp:ListItem Text="Đã hủy" Value="Đã hủy" />
                         </asp:DropDownList>
                     </EditItemTemplate>
