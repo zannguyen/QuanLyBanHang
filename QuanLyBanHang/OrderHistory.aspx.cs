@@ -31,7 +31,7 @@ namespace QuanLyBanHang
             }
             else
             {
-                lblMessage.Text = "B?n ch?a c� ??n h�ng n�o.";
+                lblMessage.Text = "Bạn chưa có đơn hàng nào!";
             }
         }
     }
