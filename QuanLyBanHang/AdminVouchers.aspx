@@ -2,20 +2,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="utf-8" />
     <style>
-        .page-title { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1A1208; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #C9973A; }
-        .wrapper-container { background: #fff; padding: 20px; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .card { background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 30px; }
-        .card h4 { margin-top: 0; margin-bottom: 15px; color: #333; }
-        .form-control { width: 100%; padding: 10px 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-family: inherit; font-size: 14px; }
-        .form-label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        .btn-primary { background: #C9973A; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 15px; display: inline-block; }
-        .btn-primary:hover { background: #b58530; }
-        .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .table th, .table td { padding: 12px; border: 1px solid #e0e0e0; text-align: left; }
-        .table th { background-color: #f4f4f4; color: #333; font-weight: bold; font-size: 14px; }
-        .table tr:hover { background-color: #f9f9f9; }
-        a { color: #C9973A; text-decoration: none; font-weight: bold; margin-right: 10px; }
-        a:hover { text-decoration: underline; }
+        .page-title { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1A1208; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 3px solid #C9973A; font-size: 28px; text-transform: uppercase; letter-spacing: 1px; }
+        .wrapper-container { background: #ffffff; padding: 30px; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 30px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 1200px; }
+        .card { background: #ffffff; padding: 25px; border-radius: 10px; border: 1px solid #eef2f5; margin-bottom: 35px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .card h4 { margin-top: 0; margin-bottom: 20px; color: #1A1208; font-size: 20px; font-weight: 600; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; }
+        .form-control { width: 100%; padding: 12px 15px; margin-bottom: 20px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 15px; color: #495057; transition: border-color 0.2s; }
+        .form-control:focus { border-color: #C9973A; outline: none; box-shadow: 0 0 0 0.2rem rgba(201, 151, 58, 0.25); }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; color: #495057; font-size: 14px; }
+        .btn-primary { background: #C9973A; color: #fff; padding: 12px 25px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 15px; display: inline-block; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-primary:hover { background: #a87e31; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .table th, .table td { padding: 15px; text-align: left; }
+        .table th { background-color: #f8f9fa; color: #495057; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: 2px solid #e9ecef; }
+        .table td { border-bottom: 1px solid #e9ecef; color: #333; font-size: 14px; }
+        .table tr:last-child td { border-bottom: none; }
+        .table tr:hover { background-color: #fdfbf7; transition: background-color 0.2s; }
+        a { color: #C9973A; text-decoration: none; font-weight: 600; margin-right: 12px; transition: color 0.2s; }
+        a:hover { color: #a87e31; text-decoration: underline; }
+        input[type="submit"]:not(.btn-primary) { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; background: #C9973A; color: #fff; font-weight: 600; transition: all 0.2s; font-size: 13px; }
+        input[type="submit"]:not(.btn-primary):hover { background: #a87e31; }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
