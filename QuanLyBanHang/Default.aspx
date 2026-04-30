@@ -93,15 +93,23 @@
         </div>
 
         <!-- NÚT THÊM GIỎ HÀNG -->
-        <asp:LinkButton ID="btnAddCart" runat="server"
-          CommandArgument='<%# Eval("Id") %>'
-          OnClick="btnAddCart_Click"
-          style="display:block; width:100%; text-align:center;
-                 background:#1A1208; color:#fff; border:none;
-                 padding:11px; font-size:13px; font-weight:500;
-                 cursor:pointer; text-decoration:none;">
-          🛒 Thêm giỏ hàng
-        </asp:LinkButton>
+      <div style="display:flex;">
+    <a href='ProductDetail.aspx?id=<%# Eval("Id") %>'
+       style="flex:1; text-align:center; background:#C9973A; color:#fff;
+              padding:11px; font-size:13px; font-weight:500;
+              text-decoration:none;">
+        Chi tiết
+    </a>
+
+    <asp:LinkButton ID="btnAddCart" runat="server"
+        CommandArgument='<%# Eval("Id") %>'
+        OnClick="btnAddCart_Click"
+        style="flex:1; text-align:center; background:#1A1208; color:#fff;
+               padding:11px; font-size:13px; font-weight:500;
+               text-decoration:none;">
+        🛒 Thêm
+    </asp:LinkButton>
+</div>
 
       </div>
     </ItemTemplate>
