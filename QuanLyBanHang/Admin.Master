@@ -12,7 +12,7 @@
     <form id="form1" runat="server">
         <div>
             <div style="background:#1A1208; padding:14px 22px; display:flex; align-items:center; gap:14px;">
-                <a href="AdminOrders.aspx" style="color:#fff; text-decoration:none; font-weight:700; position:relative;">
+                <a href="Default.aspx" style="color:#fff; text-decoration:none; font-weight:700; position:relative;">
                     Đơn hàng
                     <asp:Label ID="lblPendingOrders" runat="server" Visible="false"
                         style="margin-left:8px; display:inline-flex; align-items:center; justify-content:center;

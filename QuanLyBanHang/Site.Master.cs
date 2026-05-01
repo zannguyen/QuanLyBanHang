@@ -11,7 +11,6 @@ namespace QuanLyBanHang
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindCartCount();
         }
 
         void BindCartCount()
@@ -35,6 +34,10 @@ namespace QuanLyBanHang
                 lblCartCount.Visible = false;
                 lblCartCount.Text = string.Empty;
             }
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            BindCartCount();
         }
     }
 }
