@@ -93,13 +93,22 @@
         </div>
 
         <asp:GridView ID="GridViewProducts" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
-            DataSourceID="SqlDataSourceProducts" CssClass="table" 
+            DataSourceID="SqlDataSourceProducts" CssClass="table"
             EmptyDataText="Hiện chưa có sản phẩm nào.">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Mã" InsertVisible="False" ReadOnly="True" SortExpression="Id" ItemStyle-Width="50px" />
                 <asp:BoundField DataField="Name" HeaderText="Tên SP" SortExpression="Name" />
                 <asp:BoundField DataField="Price" HeaderText="Giá" SortExpression="Price" DataFormatString="{0:N0}" />
-                <asp:BoundField DataField="Image" HeaderText="Ảnh" SortExpression="Image" />
+                <asp:TemplateField HeaderText="Ảnh" SortExpression="Image">
+                    <ItemTemplate>
+                        <asp:Image ID="imgThumbnail" runat="server" 
+                            ImageUrl='<%# "~/Images/" + (Eval("Image") != DBNull.Value ? Eval("Image") : "no-image.png") %>' 
+                            Width="50px" Height="50px" style="object-fit: contain; border-radius: 4px;" />
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtGridImage" runat="server" CssClass="form-control" Text='<%# Bind("Image") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Danh mục" SortExpression="CategoryName">
                     <ItemTemplate>
                         <%# Eval("CategoryName") %>
