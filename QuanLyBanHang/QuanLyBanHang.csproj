@@ -86,6 +86,7 @@
     <Content Include="Images\macbookm3.jpg" />
     <Content Include="Images\samsungs24.jpg" />
     <Content Include="Login.aspx" />
+    <Content Include="OrderHistory.aspx" />
     <Content Include="ProductDetail.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Web.config" />
@@ -165,6 +166,13 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="LopKetNoi.cs" />
+    <Compile Include="OrderHistory.aspx.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderHistory.aspx.designer.cs">
+      <DependentUpon>OrderHistory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProductDetail.aspx.cs">
       <DependentUpon>ProductDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

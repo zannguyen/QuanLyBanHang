@@ -13,5 +13,6 @@ namespace QuanLyBanHang
 
     public partial class AdminOrders
     {
+        protected global::System.Web.UI.WebControls.GridView gvOrders;
     }
 }

@@ -13,5 +13,13 @@ namespace QuanLyBanHang
 
     public partial class AdminVouchers
     {
+        protected global::System.Web.UI.WebControls.TextBox txtCode;
+        protected global::System.Web.UI.WebControls.TextBox txtDiscountPercent;
+        protected global::System.Web.UI.WebControls.TextBox txtMaxDiscount;
+        protected global::System.Web.UI.WebControls.TextBox txtExpiryDate;
+        protected global::System.Web.UI.WebControls.TextBox txtQuantity;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.GridView gvVouchers;
     }
 }
