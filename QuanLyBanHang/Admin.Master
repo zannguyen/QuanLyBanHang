@@ -1,113 +1,121 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="QuanLyBanHang.Admin" %>
 
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <meta charset="utf-8" />
     <title>Admin - ShopVN</title>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
     <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-            border-collapse: collapse;
-        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
+
+        body {
+            background: #f7f3ee;
+        }
     </style>
 </head>
+
 <body>
     <form id="form1" runat="server">
-        <table class="auto-style1">
-         <tr>
-  <td style="background:#fff; border-bottom: 2px solid #C9973A;">
-    <div style="max-width:1280px; margin:0 auto; padding:0 32px; 
-                display:flex; align-items:center; height:72px; gap:32px;">
-      
-      <!-- LOGO ADMIN -->
-      <a href="AdminDashboard.aspx" style="font-family:'Georgia',serif; font-size:26px; 
-         font-weight:700; text-decoration:none; color:#1A1208;">
-        Shop<span style="color:#C9973A;">VN</span> <span style="font-size:16px; font-weight:normal; color:#666;">Admin</span>
-      </a>
 
-      <!-- BUTTON Dành cho ADMIN (Ví dụ: Đăng xuất) -->
-      <div style="display:flex; align-items:center; gap:8px; margin-left:auto;">
-        <a href="Default.aspx" target="_blank" style="display:flex; flex-direction:column; 
-           align-items:center; padding:8px 12px; text-decoration:none; color:#6B4C2A; font-size:12px; position:relative;">
-          🌐 <span>Xem trang chủ</span>
-        </a>
-        <a href="Login.aspx" style="background:#dc3545; color:#fff; padding:9px 20px; 
-           border-radius:8px; text-decoration:none; font-size:13px; font-weight:600;">
-           Đăng xuất
-        </a>
-      </div>
+        <div style="background:#fff; border-bottom:2px solid #C9973A;">
+            <div style="max-width:1280px; margin:0 auto; padding:0 32px;
+                        display:flex; align-items:center; height:72px; gap:32px;">
 
-    </div>
-  </td>
-</tr>
-            <tr>
-  <td style="background:#fff; border-bottom:2px solid #C9973A;">
-    <div style="max-width:1280px; margin:0 auto; padding:0 32px; display:flex;">
+                <a href="Default.aspx"
+                   style="font-family:Georgia,serif; font-size:26px;
+                          font-weight:700; text-decoration:none; color:#1A1208;">
+                    Shop<span style="color:#C9973A;">VN</span>
+                    <span style="font-size:16px; font-weight:normal; color:#666;">Admin</span>
+                </a>
 
-      <!-- CÁC MENU ADMIN -->
-      <a href="AdminDashboard.aspx" style="padding:12px 18px; text-decoration:none; 
-         color:#1A1208; font-size:13px; font-weight:600; 
-         text-transform:uppercase; letter-spacing:.06em;">
-        Bảng điều khiển
-      </a>
-      
-      <a href="AdminProducts.aspx" style="padding:12px 18px; text-decoration:none; color:#8B7355;
-            font-size:13px; font-weight:500; text-transform:uppercase;
-            letter-spacing:.06em; display:block;">
-        Sản phẩm
-      </a>
+                <div style="display:flex; align-items:center; gap:8px; margin-left:auto;">
+                    <a href="Default.aspx" target="_blank"
+                       style="display:flex; flex-direction:column; align-items:center;
+                              padding:8px 12px; text-decoration:none; color:#6B4C2A;
+                              font-size:12px;">
+                        🌐 <span>Xem trang chủ</span>
+                    </a>
 
-      <a href="AdminCategories.aspx" style="padding:12px 18px; text-decoration:none; color:#8B7355;
-            font-size:13px; font-weight:500; text-transform:uppercase;
-            letter-spacing:.06em; display:block;">
-        Danh mục
-      </a>
+                    <a href="Login.aspx"
+                       style="background:#dc3545; color:#fff; padding:9px 20px;
+                              border-radius:8px; text-decoration:none; font-size:13px;
+                              font-weight:600;">
+                        Đăng xuất
+                    </a>
+                </div>
 
-      <a href="AdminOrders.aspx" style="padding:12px 18px; text-decoration:none; color:#8B7355;
-            font-size:13px; font-weight:500; text-transform:uppercase;
-            letter-spacing:.06em; display:block;">
-        Đơn hàng
-      </a>
+            </div>
+        </div>
 
-      <a href="AdminVouchers.aspx" style="padding:12px 18px; text-decoration:none; color:#8B7355;
-            font-size:13px; font-weight:500; text-transform:uppercase;
-            letter-spacing:.06em; display:block;">
-        Vouchers
-      </a>
+        <div style="background:#fff; border-bottom:2px solid #C9973A;">
+            <div style="max-width:1280px; margin:0 auto; padding:0 32px; display:flex;">
 
-    </div>
-  </td>
-</tr>
-            <tr>
-                <td style="padding: 32px;">
+                <a href="Default.aspx"
+                   style="padding:12px 18px; text-decoration:none; color:#1A1208;
+                          font-size:13px; font-weight:600; text-transform:uppercase;
+                          letter-spacing:.06em;">
+                    Bảng điều khiển
+                </a>
+
+                <a href="Default.aspx"
+                   style="padding:12px 18px; text-decoration:none; color:#8B7355;
+                          font-size:13px; font-weight:500; text-transform:uppercase;
+                          letter-spacing:.06em;">
+                    Sản phẩm
+                </a>
+
+                <a href="Default.aspx"
+                   style="padding:12px 18px; text-decoration:none; color:#8B7355;
+                          font-size:13px; font-weight:500; text-transform:uppercase;
+                          letter-spacing:.06em;">
+                    Danh mục
+                </a>
+
+                <a href="Default.aspx"
+                   style="padding:12px 18px; text-decoration:none; color:#8B7355;
+                          font-size:13px; font-weight:500; text-transform:uppercase;
+                          letter-spacing:.06em; position:relative;">
+                    Đơn hàng
+                    <asp:Label ID="lblPendingOrders" runat="server" Visible="false"
+                        style="margin-left:8px; display:inline-flex; align-items:center;
+                               justify-content:center; min-width:18px; height:18px;
+                               padding:0 6px; border-radius:999px; background:#d9534f;
+                               color:#fff; font-size:11px; font-weight:800;" />
+                </a>
+
+                <a href="Default.aspx"
+                   style="padding:12px 18px; text-decoration:none; color:#8B7355;
+                          font-size:13px; font-weight:500; text-transform:uppercase;
+                          letter-spacing:.06em;">
+                    Vouchers
+                </a>
+
+            </div>
+        </div>
+
+        <div style="padding:32px;">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-                </td>
-            </tr>
-           <tr>
-  <td style="background:#1A1208;">
+        </div>
 
-    <!-- PHẦN DƯỚI FOOTER: Copyright -->
-    <div style="padding:18px 32px; max-width:1280px; margin:0 auto;
-                display:flex; justify-content:space-between; 
-                font-size:12px; color:#5A4A38;">
-      <span>© 2025 ShopVN Admin Panel.</span>
-      <span>Hệ thống Quản lý Bán Hàng</span>
-    </div>
+        <div style="background:#1A1208;">
+            <div style="padding:18px 32px; max-width:1280px; margin:0 auto;
+                        display:flex; justify-content:space-between;
+                        font-size:12px; color:#C9973A;">
+                <span>© 2025 ShopVN Admin Panel.</span>
+                <span>Hệ thống Quản lý Bán Hàng</span>
+            </div>
+        </div>
 
-  </td>
-</tr>
-        </table>
     </form>
 </body>
 </html>

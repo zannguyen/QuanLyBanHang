@@ -40,17 +40,37 @@
 
         <asp:Panel ID="pnlBank" runat="server" Visible="false"
             style="background:#FFF8EE; border:1px solid #E8DDD0; border-radius:12px; padding:14px; margin:-6px 0 16px;">
-            <div style="font-weight:700; margin-bottom:6px;">Thông tin chuyển khoản</div>
-            <div>Ngân hàng: <b>MB</b></div>
-            <div>Số tài khoản: <b>0961099359</b></div>
-            <div>Chủ tài khoản: <b>ShopDienThoai</b></div>
+            <div style="display:flex; gap:16px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
+                <div style="min-width:240px;">
+                    <div style="font-weight:700; margin-bottom:6px;">Thông tin chuyển khoản</div>
+                    <div>Ngân hàng: <b>MB</b></div>
+                    <div>Số tài khoản: <b>0961099359</b></div>
+                    <div>Chủ tài khoản: <b>ShopDienThoai</b></div>
+                    <div style="margin-top:8px; color:#6B4C2A; font-size:12px; font-weight:600;">Quét mã QR để chuyển khoản</div>
+                </div>
+
+                <div style="width:180px; height:180px; background:#fff; border:1px solid #E8DDD0; border-radius:12px; padding:10px;">
+                    <img alt="QR chuyển khoản" src="Images/qr-bank.png"
+                        style="width:160px; height:160px; display:block; margin:0 auto;" />
+                </div>
+            </div>
         </asp:Panel>
 
         <asp:Panel ID="pnlMomo" runat="server" Visible="false"
             style="background:#FFF8EE; border:1px solid #E8DDD0; border-radius:12px; padding:14px; margin:-6px 0 16px;">
-            <div style="font-weight:700; margin-bottom:6px;">Thông tin thanh toán MoMo</div>
-            <div>SĐT MoMo: <b>0961099359</b></div>
-            <div>Nội dung chuyển tiền: <b>DH</b> + mã đơn hàng</div>
+            <div style="display:flex; gap:16px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
+                <div style="min-width:240px;">
+                    <div style="font-weight:700; margin-bottom:6px;">Thông tin thanh toán MoMo</div>
+                    <div>SĐT MoMo: <b>0961099359</b></div>
+                    <div>Nội dung chuyển tiền: <b>DH</b> + mã đơn hàng</div>
+                    <div style="margin-top:8px; color:#6B4C2A; font-size:12px; font-weight:600;">Quét mã QR để thanh toán</div>
+                </div>
+
+                <div style="width:180px; height:180px; background:#fff; border:1px solid #E8DDD0; border-radius:12px; padding:10px;">
+                    <img alt="QR MoMo" src="Images/qr-momo.png"
+                        style="width:160px; height:160px; display:block; margin:0 auto;" />
+                </div>
+            </div>
         </asp:Panel>
 
         <div style="font-size:22px; font-weight:700; margin-bottom:20px;">
