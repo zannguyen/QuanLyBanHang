@@ -32,24 +32,37 @@ namespace QuanLyBanHang
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            string code = txtCode.Text.Trim();
-            string percent = txtDiscountPercent.Text;
-            string max = txtMaxDiscount.Text;
-            string date = txtExpiryDate.Text;
-            string qty = txtQuantity.Text;
-
-            if(string.IsNullOrEmpty(code) || string.IsNullOrEmpty(percent))
+            try
             {
-                 lblMessage.Text = "Mã và phần trăm không được để trống!";
-                 return;
+                string code = txtCode.Text.Trim();
+                string percent = txtDiscountPercent.Text;
+                string max = txtMaxDiscount.Text;
+                string date = txtExpiryDate.Text;
+                string qty = txtQuantity.Text;
+
+                if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(percent))
+                {
+                     lblMessage.Text = "Mã và phần trăm không được để trống!";
+                     lblMessage.ForeColor = System.Drawing.Color.Red;
+                     return;
+                }
+
+                decimal pctVal = Convert.ToDecimal(percent);
+                decimal maxVal = string.IsNullOrEmpty(max) ? 0 : Convert.ToDecimal(max);
+                int qtyVal = string.IsNullOrEmpty(qty) ? 0 : Convert.ToInt32(qty);
+
+                string sql = $"INSERT INTO Vouchers (Code, DiscountPercent, MaxDiscount, ExpiryDate, Quantity) VALUES (N'{code}', {pctVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {maxVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, '{date}', {qtyVal})";
+                kn.ThucThiLenh(sql);
+
+                lblMessage.Text = "Thêm voucher thành công!";
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+                LoadData();
             }
-
-            string sql = $"INSERT INTO Vouchers (Code, DiscountPercent, MaxDiscount, ExpiryDate, Quantity) VALUES ('{code}', {percent}, {max}, '{date}', {qty})";
-            kn.ThucThiLenh(sql);
-
-            lblMessage.Text = "Thêm thành công!";
-            lblMessage.ForeColor = System.Drawing.Color.Green;
-            LoadData();
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Lỗi khi thêm: " + ex.Message;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
         protected void gvVouchers_RowEditing(object sender, GridViewEditEventArgs e)
@@ -66,20 +79,34 @@ namespace QuanLyBanHang
 
         protected void gvVouchers_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            int id = Convert.ToInt32(gvVouchers.DataKeys[e.RowIndex].Value);
-            GridViewRow row = gvVouchers.Rows[e.RowIndex];
+            try
+            {
+                int id = Convert.ToInt32(gvVouchers.DataKeys[e.RowIndex].Value);
+                GridViewRow row = gvVouchers.Rows[e.RowIndex];
 
-            string code = ((TextBox)row.Cells[1].Controls[0]).Text;
-            string percent = ((TextBox)row.Cells[2].Controls[0]).Text;
-            string max = ((TextBox)row.Cells[3].Controls[0]).Text;
-            string date = ((TextBox)row.FindControl("txtEditDate")).Text;
-            string qty = ((TextBox)row.Cells[5].Controls[0]).Text;
+                string code = ((TextBox)row.Cells[1].Controls[0]).Text;
+                string percent = ((TextBox)row.Cells[2].Controls[0]).Text;
+                string max = ((TextBox)row.Cells[3].Controls[0]).Text;
+                string date = ((TextBox)row.FindControl("txtEditDate")).Text;
+                string qty = ((TextBox)row.Cells[5].Controls[0]).Text;
 
-            string sql = $"UPDATE Vouchers SET Code = '{code}', DiscountPercent = {percent}, MaxDiscount = {max}, ExpiryDate = '{date}', Quantity = {qty} WHERE Id = {id}";
-            kn.ThucThiLenh(sql);
+                decimal pctVal = Convert.ToDecimal(percent);
+                decimal maxVal = Convert.ToDecimal(max);
+                int qtyVal = Convert.ToInt32(qty);
 
-            gvVouchers.EditIndex = -1;
-            LoadData();
+                string sql = $"UPDATE Vouchers SET Code = N'{code}', DiscountPercent = {pctVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, MaxDiscount = {maxVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, ExpiryDate = '{date}', Quantity = {qtyVal} WHERE Id = {id}";
+                kn.ThucThiLenh(sql);
+
+                gvVouchers.EditIndex = -1;
+                LoadData();
+                lblMessage.Text = "Cập nhật thành công!";
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Lỗi khi cập nhật: " + ex.Message;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+            }
         }
 
         protected void gvVouchers_RowDeleting(object sender, GridViewDeleteEventArgs e)

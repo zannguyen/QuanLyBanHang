@@ -22,6 +22,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="wrapper-container">
         <h2 class="page-title">Quản Lý Đơn Hàng</h2>
+        <asp:Label ID="lblMessage" runat="server" Font-Bold="true" ForeColor="Red"></asp:Label>
         <asp:GridView ID="gvOrders" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
             OnRowEditing="gvOrders_RowEditing" OnRowUpdating="gvOrders_RowUpdating" OnRowCancelingEdit="gvOrders_RowCancelingEdit"
             CssClass="table table-bordered">
@@ -37,11 +38,8 @@
                     <EditItemTemplate>
                         <asp:DropDownList ID="ddlStatus" runat="server" SelectedValue='<%# Bind("Status") %>'>
                             <asp:ListItem Text="Chờ xác nhận" Value="Chờ xác nhận" />
-                            <asp:ListItem Text="Chờ xử lý" Value="Chờ xử lý" />
-                            <asp:ListItem Text="Đã xác nhận" Value="Đã xác nhận" />
-                            <asp:ListItem Text="Đang giao hàng" Value="Đang giao hàng" />
+                            <asp:ListItem Text="Đang xử lý" Value="Đang xử lý" />
                             <asp:ListItem Text="Đang giao" Value="Đang giao" />
-                            <asp:ListItem Text="Đã giao" Value="Đã giao" />
                             <asp:ListItem Text="Hoàn thành" Value="Hoàn thành" />
                             <asp:ListItem Text="Đã hủy" Value="Đã hủy" />
                         </asp:DropDownList>

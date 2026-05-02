@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -49,15 +49,25 @@ namespace QuanLyBanHang
 
         protected void gvOrders_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            int orderId = Convert.ToInt32(gvOrders.DataKeys[e.RowIndex].Value);
-            DropDownList ddlStatus = (DropDownList)gvOrders.Rows[e.RowIndex].FindControl("ddlStatus");
-            string newStatus = ddlStatus.SelectedValue;
+            try
+            {
+                int orderId = Convert.ToInt32(gvOrders.DataKeys[e.RowIndex].Value);
+                DropDownList ddlStatus = (DropDownList)gvOrders.Rows[e.RowIndex].FindControl("ddlStatus");
+                string newStatus = ddlStatus.SelectedValue;
 
-            string sql = $"UPDATE Orders SET Status = N'{newStatus}' WHERE Id = {orderId}";
-            kn.ThucThiLenh(sql);
+                string sql = $"UPDATE Orders SET Status = N'{newStatus}' WHERE Id = {orderId}";
+                kn.ThucThiLenh(sql);
 
-            gvOrders.EditIndex = -1;
-            LoadData();
+                gvOrders.EditIndex = -1;
+                LoadData();
+                lblMessage.Text = "Cập nhật thành công!";
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Lỗi: " + ex.Message;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+            }
         }
     }
 }
