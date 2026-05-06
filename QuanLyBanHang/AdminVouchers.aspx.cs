@@ -51,8 +51,20 @@ namespace QuanLyBanHang
                 decimal maxVal = string.IsNullOrEmpty(max) ? 0 : Convert.ToDecimal(max);
                 int qtyVal = string.IsNullOrEmpty(qty) ? 0 : Convert.ToInt32(qty);
 
-                string sql = $"INSERT INTO Vouchers (Code, DiscountPercent, MaxDiscount, ExpiryDate, Quantity) VALUES (N'{code}', {pctVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {maxVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, '{date}', {qtyVal})";
-                kn.ThucThiLenh(sql);
+                string sql = "INSERT INTO Vouchers (Code, DiscountPercent, MaxDiscount, ExpiryDate, Quantity) VALUES (@Code, @Percent, @MaxDiscount, @ExpiryDate, @Quantity)";
+                using (System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\QuanLyBanHang.mdf;Integrated Security=True"))
+                {
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Code", code);
+                        cmd.Parameters.AddWithValue("@Percent", pctVal);
+                        cmd.Parameters.AddWithValue("@MaxDiscount", maxVal);
+                        cmd.Parameters.AddWithValue("@ExpiryDate", date);
+                        cmd.Parameters.AddWithValue("@Quantity", qtyVal);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
 
                 lblMessage.Text = "Thêm voucher thành công!";
                 lblMessage.ForeColor = System.Drawing.Color.Green;
@@ -60,7 +72,8 @@ namespace QuanLyBanHang
             }
             catch (Exception ex)
             {
-                lblMessage.Text = "Lỗi khi thêm: " + ex.Message;
+                ErrorLogger.Log(ex, "AdminVouchers - btnAdd_Click");
+                lblMessage.Text = "❌ " + ErrorLogger.GetUserFriendlyMessage(ex.Message);
                 lblMessage.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -94,8 +107,21 @@ namespace QuanLyBanHang
                 decimal maxVal = Convert.ToDecimal(max);
                 int qtyVal = Convert.ToInt32(qty);
 
-                string sql = $"UPDATE Vouchers SET Code = N'{code}', DiscountPercent = {pctVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, MaxDiscount = {maxVal.ToString(System.Globalization.CultureInfo.InvariantCulture)}, ExpiryDate = '{date}', Quantity = {qtyVal} WHERE Id = {id}";
-                kn.ThucThiLenh(sql);
+                string sql = "UPDATE Vouchers SET Code = @Code, DiscountPercent = @Percent, MaxDiscount = @MaxDiscount, ExpiryDate = @ExpiryDate, Quantity = @Quantity WHERE Id = @Id";
+                using (System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\QuanLyBanHang.mdf;Integrated Security=True"))
+                {
+                    using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Code", code);
+                        cmd.Parameters.AddWithValue("@Percent", pctVal);
+                        cmd.Parameters.AddWithValue("@MaxDiscount", maxVal);
+                        cmd.Parameters.AddWithValue("@ExpiryDate", date);
+                        cmd.Parameters.AddWithValue("@Quantity", qtyVal);
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
 
                 gvVouchers.EditIndex = -1;
                 LoadData();
@@ -104,7 +130,8 @@ namespace QuanLyBanHang
             }
             catch (Exception ex)
             {
-                lblMessage.Text = "Lỗi khi cập nhật: " + ex.Message;
+                ErrorLogger.Log(ex, "AdminVouchers - gvVouchers_RowUpdating");
+                lblMessage.Text = "❌ " + ErrorLogger.GetUserFriendlyMessage(ex.Message);
                 lblMessage.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -112,7 +139,12 @@ namespace QuanLyBanHang
         protected void gvVouchers_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             int id = Convert.ToInt32(gvVouchers.DataKeys[e.RowIndex].Value);
-            kn.ThucThiLenh($"DELETE FROM Vouchers WHERE Id = {id}");
+            string sql = "DELETE FROM Vouchers WHERE Id = @Id";
+            System.Data.SqlClient.SqlParameter[] parameters = new System.Data.SqlClient.SqlParameter[]
+            {
+                new System.Data.SqlClient.SqlParameter("@Id", id)
+            };
+            kn.ThucThiLenh(sql, parameters);
             LoadData();
         }
     }

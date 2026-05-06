@@ -53,22 +53,6 @@
       </asp:TextBox>
     </div>
 
-    <!-- EMAIL -->
-    <div style="margin-bottom:16px;">
-      <label style="display:block; font-size:13px; font-weight:600;
-                    color:#1A1208; margin-bottom:6px;">
-        Email
-      </label>
-      <asp:TextBox ID="txtEmail" runat="server"
-        placeholder="Nhập email"
-        TextMode="Email"
-        style="width:100%; padding:11px 14px; border:1.5px solid #E8DDD0;
-               border-radius:8px; font-size:14px; outline:none;
-               font-family:'DM Sans',sans-serif; background:#FAF7F2;
-               box-sizing:border-box;">
-      </asp:TextBox>
-    </div>
-
     <!-- USERNAME -->
     <div style="margin-bottom:16px;">
       <label style="display:block; font-size:13px; font-weight:600;
@@ -92,7 +76,7 @@
       </label>
       <asp:TextBox ID="txtPassword" runat="server"
         TextMode="Password"
-        placeholder="Nhập mật khẩu (ít nhất 6 ký tự)"
+        placeholder="Nhập mật khẩu"
         style="width:100%; padding:11px 14px; border:1.5px solid #E8DDD0;
                border-radius:8px; font-size:14px; outline:none;
                font-family:'DM Sans',sans-serif; background:#FAF7F2;

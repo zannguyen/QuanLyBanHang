@@ -20,7 +20,7 @@
     <div class="table-container">
         <h2 class="page-title">Lịch sử mua hàng</h2>
         <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
-        <asp:GridView ID="gvHistory" runat="server" AutoGenerateColumns="False" CssClass="table table-striped" DataKeyNames="Id">
+        <asp:GridView ID="gvHistory" runat="server" AutoGenerateColumns="False" CssClass="table table-striped" DataKeyNames="Id" OnRowDataBound="gvHistory_RowDataBound">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Mã đơn" />
                 <asp:BoundField DataField="OrderDate" HeaderText="Ngày đặt" />

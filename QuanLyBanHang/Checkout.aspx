@@ -73,9 +73,32 @@
             </div>
         </asp:Panel>
 
-        <div style="font-size:22px; font-weight:700; margin-bottom:20px;">
-            Tổng thanh toán:
-            <asp:Label ID="lblTotal" runat="server" style="color:#C9973A;" />
+        <!-- Voucher Section -->
+        <div style="background:#F5F5F5; padding:16px; border-radius:8px; margin:16px 0;">
+            <label style="font-weight:600;">Mã giảm giá (nếu có)</label>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+                <asp:TextBox ID="txtVoucherCode" runat="server"
+                    Placeholder="Nhập mã voucher..."
+                    style="flex:1; padding:10px; border:1px solid #E8DDD0; border-radius:8px;" />
+                <asp:Button ID="btnApplyVoucher" runat="server"
+                    Text="Áp dụng"
+                    OnClick="btnApplyVoucher_Click"
+                    style="background:#C9973A; color:white; border:none; padding:10px 20px;
+                           border-radius:8px; font-weight:600; cursor:pointer;" />
+            </div>
+            <asp:Label ID="lblVoucherMsg" runat="server" style="display:block; margin-top:8px; font-size:13px;" />
+        </div>
+
+        <div style="font-size:16px; margin-bottom:8px; padding:8px; background:#FFF8EE; border-radius:8px;">
+            Tổng tiền hàng: <span style="color:#C9973A; font-weight:700;"><asp:Label ID="lblSubTotal" runat="server" /></span>
+        </div>
+
+        <div style="font-size:16px; margin-bottom:8px; padding:8px; background:#FFF8EE; border-radius:8px;">
+            Giảm giá: <span style="color:#27AE60; font-weight:700;"><asp:Label ID="lblDiscount" runat="server" Text="0₫" /></span>
+        </div>
+
+        <div style="font-size:22px; font-weight:700; margin-bottom:20px; padding:12px; background:#FFF3E0; border-radius:8px; border:2px solid #C9973A;">
+            Tổng thanh toán: <span style="color:#C9973A;"><asp:Label ID="lblTotal" runat="server" /></span>
         </div>
 
         <asp:Button ID="btnCheckout" runat="server"

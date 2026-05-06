@@ -11,6 +11,17 @@ namespace QuanLyBanHang
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserId"] != null)
+            {
+                pnlLoginBtn.Visible = false;
+                pnlLogoutBtn.Visible = true;
+                lblUserName.Text = Session["FullName"]?.ToString() ?? "User";
+            }
+            else
+            {
+                pnlLoginBtn.Visible = true;
+                pnlLogoutBtn.Visible = false;
+            }
         }
 
         void BindCartCount()

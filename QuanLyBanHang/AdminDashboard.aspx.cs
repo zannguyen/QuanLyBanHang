@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace QuanLyBanHang
 {
@@ -9,6 +10,11 @@ namespace QuanLyBanHang
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Role"] == null || Session["Role"].ToString() != "Admin")
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             if (!IsPostBack)
             {
                 LoadTotalUsers();
@@ -41,58 +47,82 @@ namespace QuanLyBanHang
             if (string.IsNullOrEmpty(txtDateFrom.Text) || string.IsNullOrEmpty(txtDateTo.Text))
                 return;
 
-            string dateFrom = txtDateFrom.Text;
-            string dateTo = txtDateTo.Text;
+            DateTime dateFrom = DateTime.Parse(txtDateFrom.Text);
+            DateTime dateTo = DateTime.Parse(txtDateTo.Text);
 
-            // Load Total Orders in range
-            string sqlOrders = $"SELECT COUNT(*) AS Total FROM Orders WHERE OrderDate >= '{dateFrom} 00:00:00' AND OrderDate <= '{dateTo} 23:59:59'";
+            string sqlOrders = @"
+                SELECT COUNT(*) AS Total FROM Orders
+                WHERE OrderDate >= @DateFrom AND OrderDate <= @DateTo";
+
             try
             {
-                DataTable dtOrders = kn.LayDuLieu(sqlOrders);
+                SqlParameter[] paramsOrders = new SqlParameter[]
+                {
+                    new SqlParameter("@DateFrom", dateFrom),
+                    new SqlParameter("@DateTo", dateTo.AddDays(1))
+                };
+                DataTable dtOrders = kn.LayDuLieu(sqlOrders, paramsOrders);
                 if (dtOrders.Rows.Count > 0)
                 {
                     lblTotalOrders.Text = dtOrders.Rows[0]["Total"].ToString();
                 }
             }
-            catch { lblTotalOrders.Text = "0"; }
+            catch (Exception ex)
+            {
+                ErrorLogger.Log(ex, "AdminDashboard - LoadDashboard (Orders)");
+                lblTotalOrders.Text = "0";
+            }
 
-            // Load Products Stat
-            string sqlProducts = $@"
+            string sqlProducts = @"
                 SELECT p.Name AS ProductName,
                        COALESCE((SELECT AVG(CAST(Rating AS FLOAT)) FROM Reviews r WHERE r.ProductId = p.Id), 0) AS AvgRating,
                        COALESCE((SELECT SUM(od.Quantity)
-                                 FROM OrderDetails od 
-                                 INNER JOIN Orders o ON od.OrderId = o.Id 
-                                 WHERE od.ProductId = p.Id 
-                                 AND o.OrderDate >= '{dateFrom} 00:00:00' 
-                                 AND o.OrderDate <= '{dateTo} 23:59:59'), 0) AS TotalSold
+                                 FROM OrderDetails od
+                                 INNER JOIN Orders o ON od.OrderId = o.Id
+                                 WHERE od.ProductId = p.Id
+                                 AND o.OrderDate >= @DateFrom
+                                 AND o.OrderDate <= @DateTo), 0) AS TotalSold
                 FROM Products p";
+
             try
             {
-                DataTable dtProducts = kn.LayDuLieu(sqlProducts);
+                SqlParameter[] paramsProducts = new SqlParameter[]
+                {
+                    new SqlParameter("@DateFrom", dateFrom),
+                    new SqlParameter("@DateTo", dateTo.AddDays(1))
+                };
+                DataTable dtProducts = kn.LayDuLieu(sqlProducts, paramsProducts);
                 gvProducts.DataSource = dtProducts;
                 gvProducts.DataBind();
             }
-            catch
+            catch (Exception ex1)
             {
-                // Fallback in case Reviews table doesn't exist
-                string sqlProductsFallback = $@"
+                ErrorLogger.Log(ex1, "AdminDashboard - LoadDashboard (Products with Reviews)");
+                string sqlProductsFallback = @"
                 SELECT p.Name AS ProductName,
                        0 AS AvgRating,
                        COALESCE((SELECT SUM(od.Quantity)
-                                 FROM OrderDetails od 
-                                 INNER JOIN Orders o ON od.OrderId = o.Id 
-                                 WHERE od.ProductId = p.Id 
-                                 AND o.OrderDate >= '{dateFrom} 00:00:00' 
-                                 AND o.OrderDate <= '{dateTo} 23:59:59'), 0) AS TotalSold
+                                 FROM OrderDetails od
+                                 INNER JOIN Orders o ON od.OrderId = o.Id
+                                 WHERE od.ProductId = p.Id
+                                 AND o.OrderDate >= @DateFrom
+                                 AND o.OrderDate <= @DateTo), 0) AS TotalSold
                 FROM Products p";
                 try
                 {
-                    DataTable dtProductsFallback = kn.LayDuLieu(sqlProductsFallback);
+                    SqlParameter[] paramsFallback = new SqlParameter[]
+                    {
+                        new SqlParameter("@DateFrom", dateFrom),
+                        new SqlParameter("@DateTo", dateTo.AddDays(1))
+                    };
+                    DataTable dtProductsFallback = kn.LayDuLieu(sqlProductsFallback, paramsFallback);
                     gvProducts.DataSource = dtProductsFallback;
                     gvProducts.DataBind();
                 }
-                catch { }
+                catch (Exception ex2)
+                {
+                    ErrorLogger.Log(ex2, "AdminDashboard - LoadDashboard (Products fallback)");
+                }
             }
         }
     }
