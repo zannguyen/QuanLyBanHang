@@ -65,12 +65,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Core">
+      <HintPath>..\packages\BCrypt.Net-Core.1.6.0\lib\net40\BCrypt.Net-Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="AddToCartAPI.aspx" />
     <Content Include="Admin.Master" />
     <Content Include="AdminCategories.aspx" />
     <Content Include="AdminDashboard.aspx" />
@@ -90,9 +94,11 @@
     <Content Include="Images\samsungs24.jpg" />
     <Content Include="Images\thinkbook14g3.jpg" />
     <Content Include="Login.aspx" />
+    <Content Include="Logout.aspx" />
     <Content Include="OrderHistory.aspx" />
     <Content Include="ProductDetail.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="SearchAPI.aspx" />
     <Content Include="Site.Master" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -182,7 +188,17 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
 
+    <Compile Include="Logout.aspx.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logout.aspx.designer.cs">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+
     <Compile Include="LopKetNoi.cs" />
+    <Compile Include="CartManager.cs" />
+    <Compile Include="ErrorLogger.cs" />
 
     <Compile Include="OrderHistory.aspx.cs">
       <DependentUpon>OrderHistory.aspx</DependentUpon>

@@ -41,7 +41,7 @@
   <h2 style="font-family:'Georgia',serif; font-size:28px; font-weight:600;
              color:#1A1208; border-bottom:2px solid #C9973A;
              padding-bottom:12px; margin-bottom:28px;">
-    Sản phẩm nổi bật
+    <asp:Label ID="lblTitle" runat="server" Text="Sản phẩm nổi bật"></asp:Label>
   </h2>
 
   <!-- ===== DATASOURCE ===== -->

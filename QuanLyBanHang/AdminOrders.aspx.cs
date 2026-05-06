@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 
 namespace QuanLyBanHang
 {
@@ -55,8 +56,13 @@ namespace QuanLyBanHang
                 DropDownList ddlStatus = (DropDownList)gvOrders.Rows[e.RowIndex].FindControl("ddlStatus");
                 string newStatus = ddlStatus.SelectedValue;
 
-                string sql = $"UPDATE Orders SET Status = N'{newStatus}' WHERE Id = {orderId}";
-                kn.ThucThiLenh(sql);
+                string sql = "UPDATE Orders SET Status = @Status WHERE Id = @OrderId";
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@Status", newStatus),
+                    new SqlParameter("@OrderId", orderId)
+                };
+                kn.ThucThiLenh(sql, parameters);
 
                 gvOrders.EditIndex = -1;
                 LoadData();

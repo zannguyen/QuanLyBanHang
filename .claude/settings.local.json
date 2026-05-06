@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path D:\\\\.NET\\\\QuanLyBanHang -Recurse -Depth 2)",
+      "Bash(Select-Object FullName, Name)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(dir *.cs)"
+    ]
+  }
+}
