@@ -59,28 +59,28 @@
         <div style="background:#fff; border-bottom:2px solid #C9973A;">
             <div style="max-width:1280px; margin:0 auto; padding:0 32px; display:flex;">
 
-                <a href="Default.aspx"
+                <a href="AdminDashboard.aspx"
                    style="padding:12px 18px; text-decoration:none; color:#1A1208;
                           font-size:13px; font-weight:600; text-transform:uppercase;
                           letter-spacing:.06em;">
                     Bảng điều khiển
                 </a>
 
-                <a href="Default.aspx"
+                <a href="AdminProducts.aspx"
                    style="padding:12px 18px; text-decoration:none; color:#8B7355;
                           font-size:13px; font-weight:500; text-transform:uppercase;
                           letter-spacing:.06em;">
                     Sản phẩm
                 </a>
 
-                <a href="Default.aspx"
+                <a href="AdminCategories.aspx"
                    style="padding:12px 18px; text-decoration:none; color:#8B7355;
                           font-size:13px; font-weight:500; text-transform:uppercase;
                           letter-spacing:.06em;">
                     Danh mục
                 </a>
 
-                <a href="Default.aspx"
+                <a href="AdminOrders.aspx"
                    style="padding:12px 18px; text-decoration:none; color:#8B7355;
                           font-size:13px; font-weight:500; text-transform:uppercase;
                           letter-spacing:.06em; position:relative;">
@@ -92,7 +92,7 @@
                                color:#fff; font-size:11px; font-weight:800;" />
                 </a>
 
-                <a href="Default.aspx"
+                <a href="AdminVouchers.aspx"
                    style="padding:12px 18px; text-decoration:none; color:#8B7355;
                           font-size:13px; font-weight:500; text-transform:uppercase;
                           letter-spacing:.06em;">

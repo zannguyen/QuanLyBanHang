@@ -88,6 +88,7 @@
     <Content Include="Images\qr-bank.png" />
     <Content Include="Images\qr-momo.png" />
     <Content Include="Images\samsungs24.jpg" />
+    <Content Include="Images\thinkbook14g3.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="OrderHistory.aspx" />
     <Content Include="ProductDetail.aspx" />
