@@ -1,4 +1,6 @@
 <%@ Page Language="C#" %>
+<%@ Import Namespace="System.Collections.Generic" %>
+<%@ Import Namespace="QuanLyBanHang" %>
 
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)

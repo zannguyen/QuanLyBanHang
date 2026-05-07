@@ -1,6 +1,7 @@
 <%@ Page Language="C#" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="System.Web.Script.Serialization" %>
+<%@ Import Namespace="QuanLyBanHang" %>
 
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
