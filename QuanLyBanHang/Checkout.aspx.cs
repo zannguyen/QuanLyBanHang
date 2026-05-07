@@ -13,10 +13,33 @@ namespace QuanLyBanHang
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserId"] == null)
+            {
+                Response.Redirect("Login.aspx?returnUrl=" + Server.UrlEncode("Checkout.aspx"));
+                return;
+            }
+
             if (!IsPostBack)
             {
+                LoadUserInfo();
                 BindDefaultPaymentUI();
                 LoadTotal();
+            }
+        }
+
+        void LoadUserInfo()
+        {
+            if (Session["UserId"] != null && string.IsNullOrEmpty(txtFullName.Text))
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+                string sql = "SELECT FullName FROM Users WHERE Id = @UserId";
+                SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@UserId", userId) };
+                DataTable dt = kn.LayDuLieu(sql, parameters);
+
+                if (dt.Rows.Count > 0)
+                {
+                    txtFullName.Text = dt.Rows[0]["FullName"].ToString();
+                }
             }
         }
 
@@ -186,12 +209,6 @@ namespace QuanLyBanHang
             {
                 lblMsg.Text = "Vui lòng chọn phương thức thanh toán!";
                 lblMsg.ForeColor = System.Drawing.Color.Red;
-                return;
-            }
-
-            if (Session["UserId"] == null)
-            {
-                Response.Redirect("Login.aspx");
                 return;
             }
 

@@ -57,7 +57,13 @@ namespace QuanLyBanHang
                     if (dt.Rows[0]["Role"].ToString() == "Admin")
                         Response.Redirect("AdminDashboard.aspx");
                     else
-                        Response.Redirect("Default.aspx");
+                    {
+                        string returnUrl = Request.QueryString["returnUrl"];
+                        if (!string.IsNullOrEmpty(returnUrl))
+                            Response.Redirect(returnUrl);
+                        else
+                            Response.Redirect("Default.aspx");
+                    }
                 }
                 else
                 {

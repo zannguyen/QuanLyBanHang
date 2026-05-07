@@ -69,11 +69,11 @@
                 Tiếp tục mua
             </a>
 
-            <a href="Checkout.aspx"
+            <asp:LinkButton ID="btnCheckout" runat="server" OnClick="btnCheckout_Click"
                style="padding:12px 22px; background:#1A1208; color:white;
-                      border-radius:8px; text-decoration:none;">
+                      border-radius:8px; text-decoration:none; display:inline-block; cursor:pointer;">
                 Thanh toán
-            </a>
+            </asp:LinkButton>
         </div>
     </div>
 

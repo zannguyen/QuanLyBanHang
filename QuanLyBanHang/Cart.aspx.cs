@@ -99,5 +99,17 @@ namespace QuanLyBanHang
 
             LoadCart();
         }
+
+        protected void btnCheckout_Click(object sender, EventArgs e)
+        {
+            if (Session["UserId"] == null)
+            {
+                Response.Redirect("Login.aspx?returnUrl=" + Server.UrlEncode("Cart.aspx"));
+            }
+            else
+            {
+                Response.Redirect("Checkout.aspx");
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@
     <div>
       <h1 style="font-family:'Georgia',serif; font-size:38px; font-weight:700;
                  color:#fff; line-height:1.2; margin-bottom:12px;">
-        Công nghệ đỉnh cao,<br/>Giá ưu đãi nhất
+        Công nghệ đỉnh cao,<br/>Giá ưu đãi
       </h1>
       <p style="color:#BCA888; font-size:15px; margin-bottom:24px;">
         Hàng chính hãng 100% · Giao hàng toàn quốc · Bảo hành chính hãng
