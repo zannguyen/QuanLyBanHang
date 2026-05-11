@@ -83,8 +83,8 @@
 
             <div class="form-group">
                 <label>Danh mục:</label>
-                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control" 
-                    DataSourceID="SqlDataSourceCategories" DataTextField="Name" DataValueField="Id">
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control"
+                    DataTextField="Name" DataValueField="Id">
                 </asp:DropDownList>
             </div>
 
@@ -93,7 +93,7 @@
         </div>
 
         <asp:GridView ID="GridViewProducts" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
-            DataSourceID="SqlDataSourceProducts" CssClass="table"
+            CssClass="table" OnRowDeleting="GridViewProducts_RowDeleting" OnRowDataBound="GridViewProducts_RowDataBound"
             EmptyDataText="Hiện chưa có sản phẩm nào.">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Mã" InsertVisible="False" ReadOnly="True" SortExpression="Id" ItemStyle-Width="50px" />
@@ -114,10 +114,9 @@
                         <%# Eval("CategoryName") %>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:DropDownList ID="ddlGridCategory" runat="server" 
-                            DataSourceID="SqlDataSourceCategories" 
-                            DataTextField="Name" 
-                            DataValueField="Id" 
+                        <asp:DropDownList ID="ddlGridCategory" runat="server"
+                            DataTextField="Name"
+                            DataValueField="Id"
                             SelectedValue='<%# Bind("CategoryId") %>'>
                         </asp:DropDownList>
                     </EditItemTemplate>

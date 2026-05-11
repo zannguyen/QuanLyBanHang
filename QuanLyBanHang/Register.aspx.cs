@@ -12,7 +12,6 @@ namespace QuanLyBanHang
 {
     public partial class Register : System.Web.UI.Page
     {
-
         LopKetNoi kn = new LopKetNoi();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -24,22 +23,14 @@ namespace QuanLyBanHang
         protected void btnRegister_Click(object sender, EventArgs e)
         {
             string fullname = txtFullName.Text.Trim();
-            string email = txtEmail.Text.Trim();
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
             string confirm = txtConfirmPassword.Text.Trim();
 
-            // Kiểm tra đầu vào
-            if (string.IsNullOrEmpty(fullname) || string.IsNullOrEmpty(email) ||
-                string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(fullname) || string.IsNullOrEmpty(username) ||
+                string.IsNullOrEmpty(password))
             {
                 ShowError("⚠️ Vui lòng nhập đầy đủ tất cả các trường!");
-                return;
-            }
-
-            if (password.Length < 6)
-            {
-                ShowError("⚠️ Mật khẩu phải có ít nhất 6 ký tự!");
                 return;
             }
 
@@ -49,26 +40,27 @@ namespace QuanLyBanHang
                 return;
             }
 
-            // Kiểm tra username đã tồn tại chưa
-            DataTable dtUser = kn.LayDuLieu($"SELECT Id FROM Users WHERE Username = '{username}'");
+            string sqlCheckUsername = "SELECT Id FROM Users WHERE Username = @Username";
+            SqlParameter[] paramsUsername = new SqlParameter[] { new SqlParameter("@Username", username) };
+            DataTable dtUser = kn.LayDuLieu(sqlCheckUsername, paramsUsername);
+
             if (dtUser.Rows.Count > 0)
             {
                 ShowError("❌ Tên đăng nhập đã tồn tại!");
                 return;
             }
 
-            // Kiểm tra email đã tồn tại chưa
-            DataTable dtEmail = kn.LayDuLieu($"SELECT Id FROM Users WHERE Email = '{email}'");
-            if (dtEmail.Rows.Count > 0)
-            {
-                ShowError("❌ Email này đã được sử dụng!");
-                return;
-            }
+            string sql = "INSERT INTO Users (Username, Password, FullName, Role) " +
+                         "VALUES (@Username, @Password, @FullName, 'User')";
 
-            // Thêm user mới
-            string sql = $"INSERT INTO Users (Username, Password, FullName, Email, Role) " +
-                         $"VALUES ('{username}', '{password}', N'{fullname}', '{email}', 'User')";
-            int kq = kn.ThucThiLenh(sql);
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Username", username),
+                new SqlParameter("@Password", password),
+                new SqlParameter("@FullName", fullname)
+            };
+
+            int kq = kn.ThucThiLenh(sql, parameters);
 
             if (kq > 0)
             {

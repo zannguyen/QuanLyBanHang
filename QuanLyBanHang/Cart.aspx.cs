@@ -69,25 +69,34 @@ namespace QuanLyBanHang
 
             if (cart == null) return;
 
-            int id = int.Parse(e.CommandArgument.ToString());
+            int productId = int.Parse(e.CommandArgument.ToString());
+            CartManager cartMgr = new CartManager();
 
             if (e.CommandName == "Plus")
             {
-                cart[id]++;
+                cart[productId]++;
             }
             else if (e.CommandName == "Minus")
             {
-                cart[id]--;
+                cart[productId]--;
 
-                if (cart[id] <= 0)
-                    cart.Remove(id);
+                if (cart[productId] <= 0)
+                    cart.Remove(productId);
             }
             else if (e.CommandName == "Remove")
             {
-                cart.Remove(id);
+                cart.Remove(productId);
             }
 
             Session["Cart"] = cart;
+
+            // Save cart to database if user is logged in
+            if (Session["UserId"] != null)
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+                cartMgr.SaveCartToDatabase(userId, cart);
+            }
+
             LoadCart();
         }
     }

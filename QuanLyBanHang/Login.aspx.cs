@@ -12,11 +12,10 @@ namespace QuanLyBanHang
 {
     public partial class Login : System.Web.UI.Page
     {
-
         LopKetNoi kn = new LopKetNoi();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Nếu đã đăng nhập rồi thì về trang chủ
             if (Session["UserId"] != null)
                 Response.Redirect("Default.aspx");
         }
@@ -33,20 +32,38 @@ namespace QuanLyBanHang
                 return;
             }
 
-            // Dùng LopKetNoi.LayDuLieu thay vì SqlCommand
-            string sql = $"SELECT Id, FullName, Role FROM Users WHERE Username = '{username}' AND Password = '{password}'";
-            DataTable dt = kn.LayDuLieu(sql);
+            string sql = "SELECT Id, FullName, Role, Password FROM Users WHERE Username = @Username";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Username", username)
+            };
+
+            DataTable dt = kn.LayDuLieu(sql, parameters);
 
             if (dt.Rows.Count > 0)
             {
-                Session["UserId"] = dt.Rows[0]["Id"];
-                Session["FullName"] = dt.Rows[0]["FullName"].ToString();
-                Session["Role"] = dt.Rows[0]["Role"].ToString();
+                string storedPassword = dt.Rows[0]["Password"].ToString();
 
-                if (dt.Rows[0]["Role"].ToString() == "Admin")
-                    Response.Redirect("AdminDashboard.aspx");
+                if (password == storedPassword)
+                {
+                    int userId = Convert.ToInt32(dt.Rows[0]["Id"]);
+                    Session["UserId"] = userId;
+                    Session["FullName"] = dt.Rows[0]["FullName"].ToString();
+                    Session["Role"] = dt.Rows[0]["Role"].ToString();
+
+                    CartManager cartMgr = new CartManager();
+                    cartMgr.LoadCartFromDatabase(userId);
+
+                    if (dt.Rows[0]["Role"].ToString() == "Admin")
+                        Response.Redirect("AdminDashboard.aspx");
+                    else
+                        Response.Redirect("Default.aspx");
+                }
                 else
-                    Response.Redirect("Default.aspx");
+                {
+                    lblError.Text = "❌ Tên đăng nhập hoặc mật khẩu không đúng!";
+                    lblError.Visible = true;
+                }
             }
             else
             {

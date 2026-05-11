@@ -20,6 +20,27 @@ namespace QuanLyBanHang
             }
         }
 
+        private decimal GetAppliedDiscount()
+        {
+            if (Session["VoucherId"] != null)
+            {
+                int voucherId = Convert.ToInt32(Session["VoucherId"]);
+                string sql = "SELECT DiscountPercent, MaxDiscount FROM Vouchers WHERE Id = @VoucherId";
+                SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@VoucherId", voucherId) };
+                DataTable dt = kn.LayDuLieu(sql, parameters);
+
+                if (dt.Rows.Count > 0)
+                {
+                    decimal discountPercent = Convert.ToDecimal(dt.Rows[0]["DiscountPercent"]);
+                    decimal maxDiscount = Convert.ToDecimal(dt.Rows[0]["MaxDiscount"]);
+                    decimal subtotal = GetTotal();
+                    decimal discount = (subtotal * discountPercent) / 100;
+                    return maxDiscount > 0 ? Math.Min(discount, maxDiscount) : discount;
+                }
+            }
+            return 0;
+        }
+
         void BindDefaultPaymentUI()
         {
             if (rblPaymentMethod != null)
@@ -70,8 +91,70 @@ namespace QuanLyBanHang
 
         void LoadTotal()
         {
-            decimal total = GetTotal();
-            lblTotal.Text = string.Format("{0:N0}₫", total);
+            decimal subtotal = GetTotal();
+            decimal discount = GetAppliedDiscount();
+            decimal finalTotal = subtotal - discount;
+
+            lblSubTotal.Text = string.Format("{0:N0}₫", subtotal);
+            lblDiscount.Text = string.Format("{0:N0}₫", discount);
+            lblTotal.Text = string.Format("{0:N0}₫", finalTotal);
+        }
+
+        protected void btnApplyVoucher_Click(object sender, EventArgs e)
+        {
+            string voucherCode = txtVoucherCode.Text.Trim().ToUpper();
+
+            if (string.IsNullOrEmpty(voucherCode))
+            {
+                lblVoucherMsg.Text = "⚠️ Vui lòng nhập mã voucher!";
+                lblVoucherMsg.ForeColor = System.Drawing.Color.Orange;
+                return;
+            }
+
+            string sql = "SELECT Id, DiscountPercent, MaxDiscount, Quantity, ExpiryDate FROM Vouchers WHERE Code = @Code";
+            SqlParameter[] parameters = new SqlParameter[] { new SqlParameter("@Code", voucherCode) };
+            DataTable dt = kn.LayDuLieu(sql, parameters);
+
+            if (dt.Rows.Count == 0)
+            {
+                lblVoucherMsg.Text = "❌ Mã voucher không tồn tại!";
+                lblVoucherMsg.ForeColor = System.Drawing.Color.Red;
+                Session["VoucherId"] = null;
+                LoadTotal();
+                return;
+            }
+
+            int quantity = Convert.ToInt32(dt.Rows[0]["Quantity"]);
+            if (quantity <= 0)
+            {
+                lblVoucherMsg.Text = "❌ Mã voucher đã hết lượt sử dụng!";
+                lblVoucherMsg.ForeColor = System.Drawing.Color.Red;
+                Session["VoucherId"] = null;
+                LoadTotal();
+                return;
+            }
+
+            DateTime expiryDate = Convert.ToDateTime(dt.Rows[0]["ExpiryDate"]);
+            if (expiryDate < DateTime.Now)
+            {
+                lblVoucherMsg.Text = "❌ Mã voucher đã hết hạn!";
+                lblVoucherMsg.ForeColor = System.Drawing.Color.Red;
+                Session["VoucherId"] = null;
+                LoadTotal();
+                return;
+            }
+
+            int voucherId = Convert.ToInt32(dt.Rows[0]["Id"]);
+            decimal discountPercent = Convert.ToDecimal(dt.Rows[0]["DiscountPercent"]);
+            decimal maxDiscount = Convert.ToDecimal(dt.Rows[0]["MaxDiscount"]);
+
+            Session["VoucherId"] = voucherId;
+            decimal discount = (GetTotal() * discountPercent) / 100;
+            discount = maxDiscount > 0 ? Math.Min(discount, maxDiscount) : discount;
+
+            lblVoucherMsg.Text = $"✅ Áp dụng giảm giá {discountPercent}% thành công! Tiết kiệm {discount:N0}₫";
+            lblVoucherMsg.ForeColor = System.Drawing.Color.Green;
+            LoadTotal();
         }
 
         protected void btnCheckout_Click(object sender, EventArgs e)
@@ -106,7 +189,15 @@ namespace QuanLyBanHang
                 return;
             }
 
-            decimal totalMoney = GetTotal();
+            if (Session["UserId"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
+            decimal subtotal = GetTotal();
+            decimal discount = GetAppliedDiscount();
+            decimal totalMoney = subtotal - discount;
 
             using (SqlConnection con = new SqlConnection(connect))
             {
@@ -115,7 +206,7 @@ namespace QuanLyBanHang
 
                 try
                 {
-                    int userId = 1;
+                    int userId = Convert.ToInt32(Session["UserId"]);
 
                     string shippingAddress = txtShippingAddress.Text.Trim();
                     string paymentMethodText = rblPaymentMethod.SelectedValue;
@@ -190,22 +281,43 @@ namespace QuanLyBanHang
                             INSERT INTO OrderDetails(OrderId, ProductId, Quantity, Price)
                             VALUES(@OrderId, @ProductId, @Quantity, @Price)";
 
-                        SqlCommand detailCmd = new SqlCommand(detailSql, con, tran);
-                        detailCmd.Parameters.AddWithValue("@OrderId", orderId);
-                        detailCmd.Parameters.AddWithValue("@ProductId", productId);
-                        detailCmd.Parameters.AddWithValue("@Quantity", quantity);
-                        detailCmd.Parameters.AddWithValue("@Price", price);
+                        using (SqlCommand detailCmd = new SqlCommand(detailSql, con, tran))
+                        {
+                            detailCmd.Parameters.AddWithValue("@OrderId", orderId);
+                            detailCmd.Parameters.AddWithValue("@ProductId", productId);
+                            detailCmd.Parameters.AddWithValue("@Quantity", quantity);
+                            detailCmd.Parameters.AddWithValue("@Price", price);
+                            detailCmd.ExecuteNonQuery();
+                        }
+                    }
 
-                        detailCmd.ExecuteNonQuery();
+                    if (Session["VoucherId"] != null)
+                    {
+                        int voucherId = Convert.ToInt32(Session["VoucherId"]);
+                        string updateVoucherSql = "UPDATE Vouchers SET Quantity = Quantity - 1 WHERE Id = @VoucherId";
+                        using (SqlCommand voucherCmd = new SqlCommand(updateVoucherSql, con, tran))
+                        {
+                            voucherCmd.Parameters.AddWithValue("@VoucherId", voucherId);
+                            voucherCmd.ExecuteNonQuery();
+                        }
                     }
 
                     tran.Commit();
 
-                    Session["Cart"] = null;
+                    // Clear cart from database and session
+                    CartManager cartMgr = new CartManager();
+                    cartMgr.ClearCart(userId);
 
-                    lblMsg.Text = "Đặt hàng thành công!";
+                    Session["Cart"] = null;
+                    Session["VoucherId"] = null;
+
+                    lblMsg.Text = "✅ Đặt hàng thành công!";
                     lblMsg.ForeColor = System.Drawing.Color.Green;
                     lblTotal.Text = "0₫";
+                    lblSubTotal.Text = "0₫";
+                    lblDiscount.Text = "0₫";
+                    txtVoucherCode.Text = "";
+                    lblVoucherMsg.Text = "";
                 }
                 catch (Exception ex)
                 {

@@ -9,7 +9,7 @@
         .form-control { width: 100%; padding: 12px 15px; margin-bottom: 20px; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 15px; color: #2f3640; transition: border-color 0.3s, box-shadow 0.3s; background-color: #fafbfc; }
         .form-control:focus { border-color: #9b59b6; outline: none; box-shadow: 0 0 0 0.25rem rgba(155, 89, 182, 0.25); background-color: #fff; }
         .form-label { display: block; margin-bottom: 8px; font-weight: 600; color: #353b48; font-size: 14px; }
-        .btn-primary { background: linear-gradient(135deg, #8e44ad, #9b59b6); color: #fff; padding: 12px 25px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 15px; display: inline-block; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(142, 68, 173, 0.3); }
+        .btn-primary { background: linear-gradient(135deg, #8e44ad, #9b59b6); color: #fff; padding: 12px 25px; border: none; border-radius: 6px; font-weight: 700, cursor: pointer; font-size: 15px; display: inline-block; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(142, 68, 173, 0.3); }
         .btn-primary:hover { background: linear-gradient(135deg, #9b59b6, #8e44ad); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(142, 68, 173, 0.4); }
         .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .table th, .table td { padding: 15px; text-align: left; }
@@ -55,8 +55,8 @@
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="True" />
                 <asp:BoundField DataField="Code" HeaderText="Mã" />
-                <asp:BoundField DataField="DiscountPercent" HeaderText="Giảm %" />
-                <asp:BoundField DataField="MaxDiscount" HeaderText="Giảm Max" />
+                <asp:BoundField DataField="DiscountPercent" HeaderText="Giảm %" DataFormatString="{0:0.##} %" />
+                <asp:BoundField DataField="MaxDiscount" HeaderText="Giảm Max" DataFormatString="{0:N0} VNĐ" />
                 <asp:TemplateField HeaderText="Ngày hết hạn">
                     <ItemTemplate>
                         <asp:Label ID="lblDate" runat="server" Text='<%# Eval("ExpiryDate", "{0:dd/MM/yyyy}") %>'></asp:Label>

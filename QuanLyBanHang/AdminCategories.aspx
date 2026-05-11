@@ -53,7 +53,7 @@
         </div>
 
         <asp:GridView ID="GridViewCategories" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
-            DataSourceID="SqlDataSourceCategories" CssClass="table" 
+            CssClass="table" OnRowDeleting="GridViewCategories_RowDeleting"
             EmptyDataText="Hiện chưa có danh mục nào.">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Mã DM" InsertVisible="False" ReadOnly="True" SortExpression="Id" ItemStyle-Width="100px" />
