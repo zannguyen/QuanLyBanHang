@@ -141,5 +141,24 @@ namespace QuanLyBanHang
                 }
             }
         }
+
+        protected void GridViewProducts_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortDir = ViewState["SortDirection"] as string == "ASC" ? "DESC" : "ASC";
+            ViewState["SortDirection"] = sortDir;
+            
+            string sql = @"
+                SELECT p.Id, p.Name, p.Price, p.Image, p.Description, c.Name AS CategoryName
+                FROM Products p
+                INNER JOIN Categories c ON p.CategoryId = c.Id";
+            DataTable dt = kn.LayDuLieu(sql);
+            if (dt != null)
+            {
+                DataView dv = new DataView(dt);
+                dv.Sort = e.SortExpression + " " + sortDir;
+                GridViewProducts.DataSource = dv;
+                GridViewProducts.DataBind();
+            }
+        }
     }
 }

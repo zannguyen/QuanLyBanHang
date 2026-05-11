@@ -16,6 +16,15 @@ namespace QuanLyBanHang
                 pnlLoginBtn.Visible = false;
                 pnlLogoutBtn.Visible = true;
                 lblUserName.Text = Session["FullName"]?.ToString() ?? "User";
+
+                if (Session["Role"]?.ToString() == "Admin")
+                {
+                    userProfileLink.HRef = "AdminDashboard.aspx";
+                }
+                else
+                {
+                    userProfileLink.HRef = "#";
+                }
             }
             else
             {

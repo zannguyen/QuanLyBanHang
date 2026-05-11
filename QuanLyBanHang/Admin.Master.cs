@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Configuration;
-using System.Data.SqlClient;
+using System;
 using System.Web.UI;
 
 namespace QuanLyBanHang
@@ -32,17 +31,11 @@ namespace QuanLyBanHang
 
             if (pending == 0)
             {
-                string connect = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-
-                using (SqlConnection con = new SqlConnection(connect))
+                LopKetNoi ketnoi = new LopKetNoi();
+                System.Data.DataTable dt = ketnoi.LayDuLieu("SELECT COUNT(*) FROM Orders WHERE Status = N'Chờ xác nhận'");
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    con.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM Orders WHERE Status = N'Chờ xác nhận'", con))
-                    {
-                        pending = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
+                    pending = Convert.ToInt32(dt.Rows[0][0]);
                 }
             }
 

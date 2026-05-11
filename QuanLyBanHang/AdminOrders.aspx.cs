@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace QuanLyBanHang
 {
@@ -34,6 +35,25 @@ namespace QuanLyBanHang
                 ORDER BY o.OrderDate DESC";
             gvOrders.DataSource = kn.LayDuLieu(sql);
             gvOrders.DataBind();
+        }
+
+        protected void gvOrders_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortDir = ViewState["SortDirection"] as string == "ASC" ? "DESC" : "ASC";
+            ViewState["SortDirection"] = sortDir;
+            
+            string sql = @"
+                SELECT o.Id, u.Username, o.OrderDate, o.TotalPrice, o.Status 
+                FROM Orders o 
+                JOIN Users u ON o.UserId = u.Id";
+            DataTable dt = kn.LayDuLieu(sql);
+            if (dt != null)
+            {
+                DataView dv = new DataView(dt);
+                dv.Sort = e.SortExpression + " " + sortDir;
+                gvOrders.DataSource = dv;
+                gvOrders.DataBind();
+            }
         }
 
         protected void gvOrders_RowEditing(object sender, GridViewEditEventArgs e)
