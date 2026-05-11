@@ -13,7 +13,8 @@
         .btn-primary:hover { background: linear-gradient(135deg, #9b59b6, #8e44ad); transform: translateY(-2px); box-shadow: 0 6px 15px rgba(142, 68, 173, 0.4); }
         .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .table th, .table td { padding: 15px; text-align: left; }
-        .table th { background: linear-gradient(135deg, #1abc9c, #16a085); color: #ffffff; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table th { background: linear-gradient(135deg, #1abc9c, #16a085); color: #F5F7FA; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table th a { color: #F5F7FA; text-decoration: none; }
         .table td { border-bottom: 1px solid #e9ecef; color: #333; font-size: 14px; background-color: #fff; }
         .table tr:last-child td { border-bottom: none; }
         .table tr:nth-child(even) td { background-color: #f4fcf9; }
@@ -51,13 +52,13 @@
         <asp:GridView ID="gvVouchers" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
             OnRowEditing="gvVouchers_RowEditing" OnRowUpdating="gvVouchers_RowUpdating" 
             OnRowCancelingEdit="gvVouchers_RowCancelingEdit" OnRowDeleting="gvVouchers_RowDeleting"
-            CssClass="table table-bordered">
+            CssClass="table table-bordered" AllowSorting="true" OnSorting="gvVouchers_Sorting">
             <Columns>
-                <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="True" />
-                <asp:BoundField DataField="Code" HeaderText="Mã" />
-                <asp:BoundField DataField="DiscountPercent" HeaderText="Giảm %" DataFormatString="{0:0.##} %" />
-                <asp:BoundField DataField="MaxDiscount" HeaderText="Giảm Max" DataFormatString="{0:N0} VNĐ" />
-                <asp:TemplateField HeaderText="Ngày hết hạn">
+                <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="True" SortExpression="Id" />
+                <asp:BoundField DataField="Code" HeaderText="Mã" SortExpression="Code" />
+                <asp:BoundField DataField="DiscountPercent" HeaderText="Giảm %" DataFormatString="{0:0.##} %" SortExpression="DiscountPercent" />
+                <asp:BoundField DataField="MaxDiscount" HeaderText="Giảm Max" DataFormatString="{0:N0} VNĐ" SortExpression="MaxDiscount" />
+                <asp:TemplateField HeaderText="Ngày hết hạn" SortExpression="ExpiryDate">
                     <ItemTemplate>
                         <asp:Label ID="lblDate" runat="server" Text='<%# Eval("ExpiryDate", "{0:dd/MM/yyyy}") %>'></asp:Label>
                     </ItemTemplate>

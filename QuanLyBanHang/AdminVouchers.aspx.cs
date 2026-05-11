@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -28,6 +29,21 @@ namespace QuanLyBanHang
         {
             gvVouchers.DataSource = kn.LayDuLieu("SELECT * FROM Vouchers ORDER BY Id DESC");
             gvVouchers.DataBind();
+        }
+
+        protected void gvVouchers_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortDir = ViewState["SortDirection"] as string == "ASC" ? "DESC" : "ASC";
+            ViewState["SortDirection"] = sortDir;
+            
+            DataTable dt = kn.LayDuLieu("SELECT * FROM Vouchers");
+            if (dt != null)
+            {
+                DataView dv = new DataView(dt);
+                dv.Sort = e.SortExpression + " " + sortDir;
+                gvVouchers.DataSource = dv;
+                gvVouchers.DataBind();
+            }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)

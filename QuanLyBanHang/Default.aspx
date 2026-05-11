@@ -16,16 +16,11 @@
     <div>
       <h1 style="font-family:'Georgia',serif; font-size:38px; font-weight:700;
                  color:#fff; line-height:1.2; margin-bottom:12px;">
-        Công nghệ đỉnh cao,<br/>Giá ưu đãi nhất
+        Công nghệ đỉnh cao,<br/>Giá ưu đãi
       </h1>
       <p style="color:#BCA888; font-size:15px; margin-bottom:24px;">
         Hàng chính hãng 100% · Giao hàng toàn quốc · Bảo hành chính hãng
       </p>
-      <a href="Default.aspx" style="display:inline-block; background:#C9973A;
-         color:#fff; padding:12px 28px; border-radius:8px; text-decoration:none;
-         font-size:14px; font-weight:600;">
-        ⚡ Mua ngay
-      </a>
     </div>
 
     <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(201,151,58,0.3);

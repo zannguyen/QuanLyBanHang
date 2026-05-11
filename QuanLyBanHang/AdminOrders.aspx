@@ -6,7 +6,8 @@
         .wrapper-container { background: linear-gradient(to right bottom, #ffffff, #fdfbf7); padding: 30px; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 30px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 1200px; }
         .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .table th, .table td { padding: 15px; text-align: left; }
-        .table th { background: linear-gradient(135deg, #3498db, #2980b9); color: #ffffff; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table th { background: linear-gradient(135deg, #3498db, #2980b9); color: #F5F7FA; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table th a { color: #F5F7FA; text-decoration: none; }
         .table td { border-bottom: 1px solid #e9ecef; color: #444; font-size: 14px; background-color: #fff; }
         .table tr:last-child td { border-bottom: none; }
         .table tr:nth-child(even) td { background-color: #f8fbfe; }
@@ -25,13 +26,13 @@
         <asp:Label ID="lblMessage" runat="server" Font-Bold="true" ForeColor="Red"></asp:Label>
         <asp:GridView ID="gvOrders" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
             OnRowEditing="gvOrders_RowEditing" OnRowUpdating="gvOrders_RowUpdating" OnRowCancelingEdit="gvOrders_RowCancelingEdit"
-            CssClass="table table-bordered">
+            CssClass="table table-bordered" AllowSorting="true" OnSorting="gvOrders_Sorting">
             <Columns>
-                <asp:BoundField DataField="Id" HeaderText="Mã Đơn" ReadOnly="True" />
-                <asp:BoundField DataField="Username" HeaderText="Khách hàng" ReadOnly="True" />
-                <asp:BoundField DataField="OrderDate" HeaderText="Ngày đặt" ReadOnly="True" />
-                <asp:BoundField DataField="TotalPrice" HeaderText="Tổng tiền" ReadOnly="True" DataFormatString="{0:N0} VNĐ" />
-                <asp:TemplateField HeaderText="Trạng thái">
+                <asp:BoundField DataField="Id" HeaderText="Mã Đơn" ReadOnly="True" SortExpression="Id" />
+                <asp:BoundField DataField="Username" HeaderText="Khách hàng" ReadOnly="True" SortExpression="Username" />
+                <asp:BoundField DataField="OrderDate" HeaderText="Ngày đặt" ReadOnly="True" SortExpression="OrderDate" />
+                <asp:BoundField DataField="TotalPrice" HeaderText="Tổng tiền" ReadOnly="True" DataFormatString="{0:N0} VNĐ" SortExpression="TotalPrice" />
+                <asp:TemplateField HeaderText="Trạng thái" SortExpression="Status">
                     <ItemTemplate>
                         <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
                     </ItemTemplate>
