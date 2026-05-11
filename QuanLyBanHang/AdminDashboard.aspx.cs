@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace QuanLyBanHang
 {
@@ -92,7 +93,19 @@ namespace QuanLyBanHang
                     new SqlParameter("@DateTo", dateTo.AddDays(1))
                 };
                 DataTable dtProducts = kn.LayDuLieu(sqlProducts, paramsProducts);
-                gvProducts.DataSource = dtProducts;
+                
+                string sortDir = ViewState["SortDirection"] as string ?? "ASC";
+                string sortExp = ViewState["SortExpression"] as string;
+                if (!string.IsNullOrEmpty(sortExp))
+                {
+                    DataView dv = new DataView(dtProducts);
+                    dv.Sort = sortExp + " " + sortDir;
+                    gvProducts.DataSource = dv;
+                }
+                else
+                {
+                    gvProducts.DataSource = dtProducts;
+                }
                 gvProducts.DataBind();
             }
             catch (Exception ex1)
@@ -116,7 +129,19 @@ namespace QuanLyBanHang
                         new SqlParameter("@DateTo", dateTo.AddDays(1))
                     };
                     DataTable dtProductsFallback = kn.LayDuLieu(sqlProductsFallback, paramsFallback);
-                    gvProducts.DataSource = dtProductsFallback;
+                    
+                    string sortDir = ViewState["SortDirection"] as string ?? "ASC";
+                    string sortExp = ViewState["SortExpression"] as string;
+                    if (!string.IsNullOrEmpty(sortExp))
+                    {
+                        DataView dv = new DataView(dtProductsFallback);
+                        dv.Sort = sortExp + " " + sortDir;
+                        gvProducts.DataSource = dv;
+                    }
+                    else
+                    {
+                        gvProducts.DataSource = dtProductsFallback;
+                    }
                     gvProducts.DataBind();
                 }
                 catch (Exception ex2)
@@ -124,6 +149,14 @@ namespace QuanLyBanHang
                     ErrorLogger.Log(ex2, "AdminDashboard - LoadDashboard (Products fallback)");
                 }
             }
+        }
+
+        protected void gvProducts_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortDir = ViewState["SortDirection"] as string == "ASC" ? "DESC" : "ASC";
+            ViewState["SortDirection"] = sortDir;
+            ViewState["SortExpression"] = e.SortExpression;
+            LoadDashboard();
         }
     }
 }

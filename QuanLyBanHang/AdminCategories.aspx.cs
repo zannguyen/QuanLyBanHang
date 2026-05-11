@@ -81,5 +81,21 @@ namespace QuanLyBanHang
                 lblMessage.ForeColor = System.Drawing.Color.Red;
             }
         }
+
+        protected void GridViewCategories_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortDir = ViewState["SortDirection"] as string == "ASC" ? "DESC" : "ASC";
+            ViewState["SortDirection"] = sortDir;
+            
+            string sql = "SELECT Id, Name FROM Categories";
+            DataTable dt = kn.LayDuLieu(sql);
+            if (dt != null)
+            {
+                DataView dv = new DataView(dt);
+                dv.Sort = e.SortExpression + " " + sortDir;
+                GridViewCategories.DataSource = dv;
+                GridViewCategories.DataBind();
+            }
+        }
     }
 }

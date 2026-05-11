@@ -6,7 +6,8 @@
         .wrapper-container { background: linear-gradient(to right bottom, #ffffff, #fdfbf7); padding: 30px; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 30px auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 1200px; }
         .table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .table th, .table td { padding: 15px; text-align: left; }
-        .table th { background: linear-gradient(135deg, #3498db, #2980b9); color: #ffffff; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table th { background: linear-gradient(135deg, #3498db, #2980b9); color: #F5F7FA; font-weight: 600; text-transform: capitalize; font-size: 15px; border-bottom: none; }
+        .table th a { color: #F5F7FA; text-decoration: none; }
         .table td { border-bottom: 1px solid #e9ecef; color: #444; font-size: 14px; background-color: #fff; }
         .table tr:last-child td { border-bottom: none; }
         .table tr:nth-child(even) td { background-color: #f8fbfe; }
@@ -93,7 +94,7 @@
         </div>
 
         <asp:GridView ID="GridViewProducts" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
-            CssClass="table" OnRowDeleting="GridViewProducts_RowDeleting" OnRowDataBound="GridViewProducts_RowDataBound"
+            CssClass="table" OnRowDeleting="GridViewProducts_RowDeleting" OnRowDataBound="GridViewProducts_RowDataBound" AllowSorting="true" OnSorting="GridViewProducts_Sorting"
             EmptyDataText="Hiện chưa có sản phẩm nào.">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Mã" InsertVisible="False" ReadOnly="True" SortExpression="Id" ItemStyle-Width="50px" />
